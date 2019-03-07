@@ -1,0 +1,6 @@
+<ion-item>
+    <ion-label>Remaining time:</ion-label>
+           {{ 1 - percentage | percent}} |
+           {{timeRemaning | timeFormat}}
+  </ion-item>
+<ion-progress-bar color="tertiary" [value]="percentage"></ion-progress-bar>

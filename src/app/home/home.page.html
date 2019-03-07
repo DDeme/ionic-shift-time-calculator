@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>
+      Time Attendance 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Actual total time deficit:</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="input.timeDefficit.operation" (ionChange)="generateReport()">
+            <ion-select-option *ngFor="let option of time" [value]="option.value"> {{option.label}}</ion-select-option>
+        </ion-select>
+        <ion-datetime value="" name="" display-format="HH:mm" [(ngModel)]="input.timeDefficit.time" (ionChange)="generateReport()" [attr.hour-values]="hoursOptions" [attr.minutes-values]="minutesOptions"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>Target time: </ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="input.timeTarget.operation" (ionChange)="generateReport()">
+            <ion-select-option *ngFor="let option of time" [value]="option.value"> {{option.label}}</ion-select-option>
+        </ion-select>
+        <ion-datetime display-format="HH:mm" [attr.hour-values]="hoursOptions" [(ngModel)]="input.timeTarget.time" (ionChange)="generateReport()" [attr.minutes-values]="minutesOptions"></ion-datetime>
+    </ion-item>
+  <ion-item>
+    <ion-label>Start time:</ion-label>
+    <ion-datetime picker-format="HH:mm" [(ngModel)]="input.startDate" (ionChange)="generateReport()" display-format="HH:mm" required></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>End time:</ion-label>
+      <ion-datetime display-format="HH:mm" [(ngModel)]="input.endDate" (ionChange)="generateReport()" picker-format="HH:mm" ></ion-datetime>
+   </ion-item>
+
+   <ion-item-divider>
+      <ion-label>Report: </ion-label>
+   </ion-item-divider>
+   <ion-item>
+      <ion-label>Time Deficit:</ion-label>  
+      {{report.deficit}}
+    </ion-item>
+    <ion-item>
+        <ion-label>Recommended departure:</ion-label>
+        {{report.recommnededDeparture}}
+    </ion-item>
+    <ion-item>
+        <ion-label>Calculated departure:</ion-label>
+        {{report.calculatedDeparture}}
+    </ion-item>
+    <app-time-remaining [start]="input.startDate"  [end]="report.calculatedDeparture"></app-time-remaining>
+  </ion-content>
+  <ion-footer>
+      <ion-button expand="block" (click)="resetForm()" color="tertiary">Reset Form</ion-button>
+  </ion-footer>
